@@ -1,0 +1,23 @@
+{
+  "name": "serveur.js",
+  "version": "1.0.0",
+  "description": "ici je créer mon premier serveur avec avec node seul.",
+  "homepage": "https://github.com/fougerouxjassem83-code/may.groumet#readme",
+  "bugs": {
+    "url": "https://github.com/fougerouxjassem83-code/may.groumet/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fougerouxjassem83-code/may.groumet.git"
+  },
+  "license": "ISC",
+  "author": "\"Fougeroux Jassem-Aristid\"",
+  "type": "commonjs",
+  "main": "serveur.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
