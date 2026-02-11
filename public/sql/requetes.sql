@@ -50,7 +50,7 @@ quantité,
 ingrédient,
 fait_maison
  ) VALUES ("pilao","10€","1","Riz sauce","oui");
-
+ 
 
 
 --ici je rajoute d'autre plats
@@ -67,3 +67,172 @@ fait_maison
  ("camaron a la sauce tomate","15","1","crevette&saucetomate","oui");
 
 
+--ici je vais coder un autre tableau nommert produits
+
+CREATE TABLE  produits (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    NOM VARCHAR (155) NOT NULL,
+    Description VARCHAR (155),
+    prix INT NOT NULL,
+    Categorie VARCHAR (155) NOT NULL,
+    Disponible Boolean DEFAULT TRUE,
+    Origine VARCHAR (80) NOT NULL,
+    Type-culture VARCHAR (30),
+    id_fournisseur INT NOT NULL
+    );
+
+
+
+
+-- Création de la table Fournisseur si elle n'existe pas
+CREATE TABLE Fournisseur (
+    id INT NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(155) NOT NULL,
+    responsable VARCHAR(155) NOT NULL,
+    tel VARCHAR(80),
+    mail VARCHAR(155) NOT NULL,
+    ADRESS_postale VARCHAR(300),
+    FOREIGN KEY (id_produits) REFERENCES produits(id_produits)
+);
+
+
+  
+
+
+INSERT INTO Fournisseur
+(
+nom,
+RESPONSABLE,
+TEL,
+MAIL,
+ADRESS_POSTALE
+) VALUES("Le Bill","Grand Chef Fournisseur","6302935012","lebillgrand@gmail.com"," 27 Rue abdallah "),
+("Redd","le bon déroulement des actions","026457896","reddliab@gmail.com","42 Rue moussa"),
+("berry","chauffeur des produits","025378964","berryoff@gmail.com","78 Rue bamcolo"),
+("labyboss","decharge les produits","568975618","labybo@gmail.com","54 Rue alibaco");
+
+
+
+
+--ici j'associe mes tables
+
+CREATE TABLE fournisseur (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(155) NOT NULL,
+    responsable VARCHAR(155) NOT NULL,
+    tel VARCHAR(80),
+    mail VARCHAR(155) NOT NULL,
+    adresse_postale VARCHAR(300)
+) ENGINE=InnoDB;
+
+  
+
+
+--la deuxieme table normal de produits pour associer
+CREATE TABLE produits (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(155) NOT NULL,
+    description VARCHAR(155),
+    prix INT NOT NULL,
+    categorie VARCHAR(155) NOT NULL,
+    disponible BOOLEAN DEFAULT TRUE,
+    origine VARCHAR(80) NOT NULL,
+    type_culture VARCHAR(30),
+    id_fournisseur INT NOT NULL,
+    CONSTRAINT fk_produit_fournisseur
+        FOREIGN KEY (id_fournisseur)
+        REFERENCES fournisseur(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+
+
+    ------ICI JE RECREER MES TABLES DEPUIS LE DEBUT POUR LES ASSOCIER
+
+    CREATE TABLE fournisseur (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(155) NOT NULL,
+    responsable VARCHAR(155) NOT NULL,
+    tel VARCHAR(80),
+    mail VARCHAR(155) NOT NULL,
+    adresse_postale VARCHAR(300)
+) ENGINE=InnoDB;
+
+-- ici je rajoute les infos pour ma table
+
+  INSERT INTO fournisseur
+(
+    nom,
+    responsable,
+    tel,
+    mail,
+    adresse_postale
+)
+VALUES
+('Le Bill', 'Grand Chef Fournisseur', '6302935012', 'lebillgrand@gmail.com', '27 Rue abdallah'),
+('Redd', 'Le bon déroulement des actions', '026457896', 'reddliab@gmail.com', '42 Rue moussa'),
+('Berry', 'Chauffeur des produits', '025378964', 'berryoff@gmail.com', '78 Rue bamcolo'),
+('Labyboss', 'Décharge les produits', '568975618', 'labybo@gmail.com', '54 Rue alibaco');
+
+
+
+--ici je rajoute aussi des produits a ma deuxieme table  qui se nomme produits
+
+
+CREATE TABLE produits (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(155) NOT NULL,
+    description VARCHAR(155),
+    prix INT NOT NULL,
+    categorie VARCHAR(155) NOT NULL,
+    disponible BOOLEAN DEFAULT TRUE,
+    origine VARCHAR(80) NOT NULL,
+    type_culture VARCHAR(30),
+    id_fournisseur INT NOT NULL,
+    CONSTRAINT fk_produit_fournisseur
+        FOREIGN KEY (id_fournisseur)
+        REFERENCES fournisseur(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+
+
+
+
+INSERT INTO produits
+(
+    nom,
+    description,
+    prix,
+    categorie,
+    disponible,
+    origine,
+    type_culture,
+    id_fournisseur
+)
+VALUES
+('Brochette viande', 'Viande de boeuf assaisonnée', 15, 'Viande', TRUE, 'Mayotte', 'Traditionnel', 1),
+('Mtsolola poisson', '1 à 2 racines de manioc et 1 kg de viande de boeuf', 10, 'Poisson', TRUE, 'Mayotte', 'Traditionnel', 1),
+('Poulet grillé', 'Sel et poivre', 15, 'Volaille', TRUE, 'Mayotte', 'Traditionnel', 1),
+('Camaron à la sauce tomate', 'Crevettes et sauce tomate', 15, 'Fruits de mer', TRUE, 'Mayotte', 'Traditionnel', 1);
+
+
+
+
+--ICI JE VAIS RAJOUTER DEUX AUTRE TRUCS
+
+INSERT INTO produits
+(
+    nom,
+    description,
+    prix,
+    categorie,
+    disponible,
+    origine,
+    type_culture,
+    id_fournisseur
+)
+VALUES
+("Beredre sauce rouge","Viande de boeuf assaisonnée",10,"Viande",TRUE,"Anjouan","plat traditionnelle d'anjouan",1);
