@@ -1,9 +1,52 @@
 const express = require('express');
-
-
-
-
 const app = express();
+
+                                                    1
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/*ici j'appelle mysql pour intéroger ma bases de données*
+donc afin de bien utiliser j'appelle mes 2 aplication pour pouvoir me connecter a ma base de données */
+const mysql2 = require("mysql2");
+
+
+
+const myConnection = require('express-myconnection');
+
+//**ici je configure les élements attendus */
+
+const optionConnectionBasedeDonnees =  {
+
+    host:"localhost",
+    user:"root",
+    password:"Thevie@976",
+    database:"maygourmet",
+    port:3306
+
+};
+
+
+//ici on vas utiliser un middleware pour se connecter  à la bdd
+app.use (myConnection(mysql2, optionConnectionBasedeDonnees, "pool"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                2
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 // Je précise que les vues sont dans le dossier views
 app.set('views','./views');
@@ -11,7 +54,7 @@ app.set('views','./views');
 
 app.set('view engine', 'ejs')
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // j'ai dit appJS pour qu'il va sur le dossier public.
@@ -22,7 +65,7 @@ app.use(express.static('public'));
 
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -38,4 +81,6 @@ app.get('/api/acceuil', (req, res) => {
 
 
 module.exports = app;
+
+
 
