@@ -4,8 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon équipe</title>
+    <link rel="stylesheet" href="/css/equipe.css">
 </head>
 <body>
     
+
+<!--ici jai ramener depuis ma base de donné une personne-->
+<h2>Qui sont l'équipe May.gourmet ?</h2>
+
+<% resultatEquipe.forEach(resultat => { %>
+  <div class="card">
+    <img src="/image/gerant.jpg" width="200" height="180">
+    <div class="container">
+    <b></b><%= resultat.prenom %></b>
+    <%= resultat.nom %>   <!--ici je vais rajouter une card dans la laquelle je vais rajohuter la photo de la personne -->
+    
+
+    </div>
+  </div>
+<% }) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
+
+
+

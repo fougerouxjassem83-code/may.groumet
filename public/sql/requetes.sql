@@ -25,10 +25,45 @@ telephone,
 poste,
 presentation,
  date_revrutrment ) VALUES 
- ("SAID","Fatima","Sfatima@gmail.com","0693678798","Gérante","passionée de cuisine traditionnelle ","2015-01-02"),
+ ("MAMADOU","mamadou","Mmamadou@gmail.com","0639406150,maire de mamoudzou"," élus par les habitants","2014-05-02");
+
+
+
+
+
+
+INSERT INTO equipe 
+(nom,
+prenom,
+mail,
+telephone,
+poste,
+presentation,
+ date_revrutrment ) VALUES 
  ("MAMADOU","mamadou","Mmamadou@gmail.com","0639406150,maféticherose,il","il mange la terre","2014-05-02");
 
 
+
+
+
+INSERT INTO equipe
+(nom,
+prenom,
+mail,
+telephone,
+poste,
+presentation,
+date_revrutrment ) VALUES
+("ALI",
+ "Fatima",
+ "fatima.ali@gmail.com",
+ "0693123456",
+ "Secrétaire",
+ "Organisée et dynamique, elle gère l'administration",
+ "2018-09-15");
+
+
+---------------------------------------------------------------------------------------------------------------------------
 
 -- ici je vais fairedfférants tables pour voir mes acquis et blocage--
 
@@ -66,6 +101,7 @@ fait_maison
  ("poulet grillées","15","10","sel poivre","oui"),
  ("camaron a la sauce tomate","15","1","crevette&saucetomate","oui");
 
+--------------------------------------------------------------------------------------------------------------
 
 --ici je vais coder un autre tableau nommert produits
 
@@ -84,20 +120,7 @@ CREATE TABLE  produits (
 
 
 
--- Création de la table Fournisseur si elle n'existe pas
-CREATE TABLE Fournisseur (
-    id INT NOT NULL AUTO_INCREMENT,
-    nom VARCHAR(155) NOT NULL,
-    responsable VARCHAR(155) NOT NULL,
-    tel VARCHAR(80),
-    mail VARCHAR(155) NOT NULL,
-    ADRESS_postale VARCHAR(300),
-    FOREIGN KEY (id_produits) REFERENCES produits(id_produits)
-);
-
-
-  
-
+  ----------------------------------------------------------------------------------------
 
 INSERT INTO Fournisseur
 (
@@ -112,7 +135,7 @@ ADRESS_POSTALE
 ("labyboss","decharge les produits","568975618","labybo@gmail.com","54 Rue alibaco");
 
 
-
+----------------------------------------------------------------------------------------------
 
 --ici j'associe mes tables
 
@@ -126,7 +149,7 @@ CREATE TABLE fournisseur (
 ) ENGINE=InnoDB;
 
   
-
+----------------------------------------------------------------------------------------------------- 
 
 --la deuxieme table normal de produits pour associer
 CREATE TABLE produits (
@@ -176,10 +199,11 @@ VALUES
 ('Labyboss', 'Décharge les produits', '568975618', 'labybo@gmail.com', '54 Rue alibaco');
 
 
+------------------------------------------------------------------------------------------------------
+
+
 
 --ici je rajoute aussi des produits a ma deuxieme table  qui se nomme produits
-
-
 CREATE TABLE produits (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(155) NOT NULL,
@@ -196,9 +220,6 @@ CREATE TABLE produits (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) ENGINE=InnoDB;
-
-
-
 
 
 INSERT INTO produits
@@ -219,7 +240,7 @@ VALUES
 ('Camaron à la sauce tomate', 'Crevettes et sauce tomate', 15, 'Fruits de mer', TRUE, 'Mayotte', 'Traditionnel', 1);
 
 
-
+-----------------------------------------------------------------------------------------------------------------------
 
 --ICI JE VAIS RAJOUTER DEUX AUTRE TRUCS
 
@@ -236,3 +257,6 @@ INSERT INTO produits
 )
 VALUES
 ("Beredre sauce rouge","Viande de boeuf assaisonnée",10,"Viande",TRUE,"Anjouan","plat traditionnelle d'anjouan",1);
+
+
+--------------------------------------------------------------------------------------------------------

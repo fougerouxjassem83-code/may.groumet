@@ -12,8 +12,9 @@ const mysql2 = require("mysql2");
 
 
 const myConnection = require('express-myconnection');
+const connection = require('express-myconnection');
 
-//**ici je configure les élements attendus */
+//**ici je configure les élements attendus pour se connecter a ma base de données */
 
 const optionConnectionBasedeDonnees =  {
 
@@ -74,6 +75,39 @@ app.get('/api/acceuil', (req, res) => {
     console.log("Je passe dans /api/acceuil");
     res.render('acceuil');
 });
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////
+//**je me connecte a a la bdd grace a la méthode get connect// */
+app.get('/api/equipe', (req, res) => {
+    console.log("je passe dans la route api rest /api/equipe");
+
+    req.getConnection((erreur, connection) => {
+        if (erreur) {
+            console.log(erreur);
+        } else {
+            connection.query("SELECT * FROM equipe",[], (erreur, resultatEquipe) => {
+            if (erreur){
+                console.log("Erreur dans la requete",erreur);
+            }else{
+                console.log("mon equipe : ",resultatEquipe)
+                res.render("equipe", {resultatEquipe}); /// ici je renvois les résultats 
+            }
+          });
+        }
+    });
+    
+});
+
 
 
 
