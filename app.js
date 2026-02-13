@@ -113,6 +113,29 @@ app.get('/api/equipe', (req, res) => {
 
 
 
+/////////////////////////////////////////////////////////////////////////²
+
+
+/*ICI j'ajoute un fournisseur a ma table fournisseur
+"POST" signifie nouveau*/
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.post('/api/fournisseur', (req,res) => {
+  res.send("POST reçu");
+});
+
+app.get('/api/fournisseur', (req,res) => {
+  res.render('fournisseur');
+});
+
+
+
+
+
+
+
 
 module.exports = app;
 

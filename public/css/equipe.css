@@ -1,9 +1,38 @@
 /*ici je rajoute le */
 
+*{
+  background-color: aliceblue;
+
+}
+
+
+
+h2{
+  text-align: center;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/**************************************************************************************************/
 .card {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
+  margin: 50px;
+  width: 200px;
+display: inline-flex;
+
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -14,4 +43,34 @@
 /* Add some padding inside the card container */
 .container {
   padding: 2px 16px;
+}
+
+
+
+/********************************************************************************/
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
 }
