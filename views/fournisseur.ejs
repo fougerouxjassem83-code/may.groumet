@@ -28,33 +28,23 @@
 
    <!--ici je je c créer ce un  --> 
 
-<form action="api/fournisseur" method="post">
-  <label for="prenom?">prenom</label>
+<form action="/api/fournisseur" method="post">
+  <label for="prenom?">Prénom</label>
   <input type="text" id="nomFournisseur" name="Nom" placeholder="mettez votre prénom ..">
 
   <label for="lname">Nom</label>
   <input type="text" id="telephoneFurnisser" name="emailFournisseur" placeholder="nom du responsable?">
-    
-  <label for="Quelle est votre pays">Votre pays</label>
-  <select id="Selectionner votre pays" name="pays">
-    <option value="australia">Mayotte</option>
-    <option value="France">France</option>
-    <option value="la reunion">La Réunion</option>
-    <option value="Mayotte">Maurice</option>
-    <option value="Martinique">Guadeloupe</option>
-    <option value="Martinique">Martinique</option>
-</select>
 
-<label for="presentationFournisseur">Presentation :</label>
+  <label for="emailFournisseur">Email :</label>
+  <input type="email" id="emailFournisseurInput" name="email" placeholder="Email du fournisseur">
 
 
-
-
-
-
+  <label for="presentationFournisseur">Presentation :</label>
+  <input type="text" id="presentationFournisseur" name="presentation">
 
   <input type="submit" value="envoyer">
 </form>
+
 
 
 </form>
