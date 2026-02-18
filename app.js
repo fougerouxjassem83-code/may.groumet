@@ -110,12 +110,60 @@ app.get('/api/equipe', (req, res) => {
 
 
 
-
+/**ici je recupzerer un a un les information */
 app.post('/api/fournisseur', (req, res) => {
     console.log("je passe dans la route api rest /api/fournisseur",req.body);
-    console.log("nom fourrnisseur :",req.body.Nom)
-    console.log("prenom fournisseur :",req.body.emal)
-    
+    console.log("nom Fourrnisseur :",req.body.Nom);
+    console.log("ici je récupère le prenom:",req.body.Prénom)
+    console.log("emailFournisseur :",req.body.email)
+    console.log("présentation du fournisseur:",req.body.Presentation)
+
+/**ici on envoie les infos sur sql */
+const nomFournisseur = req.body.Nom
+const emailFournisseur = req.body.emailFournisseur
+const telephoneFournisseur = req.body.telephoneFournisseur
+const ad
+
+
+
+
+
+
+/**ici on fais des configue pour reussir a lles envoyer sur ma bases de données  */
+const requeteSql = VALUES("?,?,?,?");
+
+
+
+
+
+
+
+const Ordreschamps = 
+
+
+
+
+
+///**il me connect a la bases de données */
+
+req.getConnection((erreur,connection) => {
+
+if(erreur){ // si il ya une erreur
+console.log("erreur de connection a la bdd : ")
+    }else{//si jai reussi a me connecter a la bdd
+connection.query(requeteSql,Ordreschamps,)
+
+}
+
+
+
+});
+
+
+
+
+
+
     req.getConnection((erreur, connection) => {
         if (erreur) {
             console.log(erreur);
@@ -136,7 +184,7 @@ app.post('/api/fournisseur', (req, res) => {
 
 
 /*ICI j'ajoute un fournisseur a ma table fournisseur
-"POST" signifie nouveau*/
+"POST" signifie  par la suite post signifie l'endroit ou je peut fairenouveau*/
 
 app.post('/api/fournisseur', (req,res) => {
   res.send("POST reçu",req.body);
