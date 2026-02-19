@@ -101,6 +101,43 @@ app.get('/api/equipe', (req, res) => {
 
 
 
+///////////////////////////////////////////////////////////////////////
+
+///**ici on a créer un api qui consistera de supprimer un membre de l'équipe
+// la Methode : DELETE
+// EXEMPLE : localhost : 2007/api/equipe/4  */
+
+app.delete('/api/equipe/:id',(req,res) =>{
+    const idMembreEquipe = req.params.id;
+     const queryDelete = "DELETE FROM EQUIPE WHERE id = ?";
+    req.getConnection((erreur,connection) => {
+            if(erreur){
+                console.log("erreur supression equipe");
+
+            }else{
+            connection.query(queryDelete,[idMembreEquipe],(erreur,resultat) => {
+            if(erreur){
+                console.log("erreur requete suppression :", erreur);
+            
+            }else{
+                console.log("bravo! le membre est supprimé dans laa table ")
+
+            
+                res.status(200).redirect("/api/acceuil");
+            
+            }
+
+
+            }
+        )
+            }
+
+        }
+       
+    )
+
+    }
+);
 
 
 
@@ -108,61 +145,51 @@ app.get('/api/equipe', (req, res) => {
 
 
 
-
-
-/**ici je recupzerer un a un les information */
 app.post('/api/fournisseur', (req, res) => {
-    console.log("je passe dans la route api rest /api/fournisseur",req.body);
-    console.log("nom Fourrnisseur :",req.body.Nom);
-    console.log("ici je récupère le prenom:",req.body.Prénom)
-    console.log("emailFournisseur :",req.body.email)
-    console.log("présentation du fournisseur:",req.body.Presentation)
+console.log("corps de la requete :", req.body);
 
-/**ici on envoie les infos sur sql */
-const nomFournisseur = req.body.Nom
-const emailFournisseur = req.body.emailFournisseur
-const telephoneFournisseur = req.body.telephoneFournisseur
-const ad
+const nomFournisseur = req.body.nomFournisseur;
+const responsableFournisseur = req.body.responsableFournisseur;
+const emailFournisseur = req.body.mailFournisseur;
+const telephoneFournisseur = req.body.telephoneFournisseur;
+const adressePostaleFournissseur = req.body.adresseFournisseur;
 
+const requeteSql = "INSERT INTO fournisseur (nom, responsable, tel, mail, adresse_postale) VALUES (?, ?, ?, ?, ?)";
 
+const Ordreschamps = [
+    nomFournisseur,
+    responsableFournisseur,
+    telephoneFournisseur,
+    emailFournisseur,
+    adressePostaleFournissseur
+];
 
+req.getConnection((erreur, connection) => {
 
+    if (erreur) {
+        console.log("erreur de connection a la bdd :", erreur);
+    } else {
 
+        connection.query(requeteSql, Ordreschamps, (erreur, nouveaufournisseur) => {
 
-/**ici on fais des configue pour reussir a lles envoyer sur ma bases de données  */
-const requeteSql = VALUES("?,?,?,?");
+            if (erreur) {
+                console.log("erreur d'ajout fournisseur :", erreur);
+            } else {
+                console.log("Bravo Nouveau fournisseur ajouté");
+                res.redirect("/api/fournisseur");
+            }
 
+        });
 
+    }
 
-
-
-
-
-const Ordreschamps = 
-
-
-
-
-
-///**il me connect a la bases de données */
-
-req.getConnection((erreur,connection) => {
-
-if(erreur){ // si il ya une erreur
-console.log("erreur de connection a la bdd : ")
-    }else{//si jai reussi a me connecter a la bdd
-connection.query(requeteSql,Ordreschamps,)
-
-}
-
-
-
+});
 });
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
+    app.get('/api/fournisseur', (req, res) => {
 
     req.getConnection((erreur, connection) => {
         if (erreur) {
@@ -178,9 +205,8 @@ connection.query(requeteSql,Ordreschamps,)
             });
         }
     });
+
 });
-
-
 
 
 /*ICI j'ajoute un fournisseur a ma table fournisseur

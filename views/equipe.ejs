@@ -18,16 +18,18 @@
     <div class="container">
     <b></b><%= resultat.prenom %></b>
     <%= resultat.nom %>   <!--ici je vais rajouter une card dans la laquelle je vais rajohuter la photo de la personne -->
-    
-
+    <br>    <!--ici on rajoute un boutton poiur cliquer pour supprimer-->
+    <input type="button" value="supprimer" onclick="supprimer('<%resultat.id=%>')">
     </div>
   </div>
-<% }) %>
 
+  <%}) %>
 
+<script>
 
+</script>
 
-<!--cic -->
+<!--ici -->
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,24 +38,6 @@
 <a href="#" class="fa fa-facebook"></a>
 <a href="#" class="fa fa-twitter"></a>
 ....
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
