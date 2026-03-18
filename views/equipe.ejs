@@ -5,45 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon équipe</title>
     <link rel="stylesheet" href="/css/equipe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    
 
-<!--ici jai ramener depuis ma base de donné une personne-->
 <h2>Qui sont l'équipe May.gourmet ?</h2>
 
 <% resultatEquipe.forEach(resultat => { %>
   <div class="card">
     <img src="/image/gerant.jpg" width="200" height="180">
     <div class="container">
-    <b></b><%= resultat.prenom %></b>
-    <%= resultat.nom %>   <!--ici je vais rajouter une card dans la laquelle je vais rajohuter la photo de la personne -->
-    <br>    <!--ici on rajoute un boutton poiur cliquer pour supprimer-->
-    <input type="button" value="supprimer" onclick="supprimer('<%resultat.id=%>')">
+      <b><%= resultat.prenom %></b> <%= resultat.nom %>
+      <br>
+      <!-- Bouton dynamique pour chaque membre -->
+      <button class="openModalBtn" 
+              data-prenom="<%= resultat.prenom %>" 
+              data-nom="<%= resultat.nom %>" 
+              data-poste="<%= resultat.poste %>" 
+              data-presentation="<%= resultat.presentation %>">
+        Contacter
+      </button>
+    </div>
+  </div>
+<% }) %>
+
+<!-- Réseaux sociaux -->
+<a href="#" class="fa fa-facebook"></a>
+<a href="#" class="fa fa-twitter"></a>
+
+<!-- Bouton unique pour ouvrir le modal -->
+
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Ajouter un membre!</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>connecter vous!</h2>
+    </div>
+    <div class="modal-body">
+      <p></p>
+      <p></p>
+    </div>
+    <div class="modal-footer">
+      <h3></h3>
     </div>
   </div>
 
-  <%}) %>
-
-<script>
-
-</script>
-
-<!--ici -->
-
-<!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<!-- Add font awesome icons -->
-<a href="#" class="fa fa-facebook"></a>
-<a href="#" class="fa fa-twitter"></a>
-....
-
-
+</div>
 
 
 </body>
+<script src="/javascript/script.js"></script>
 </html>
-
-
-
