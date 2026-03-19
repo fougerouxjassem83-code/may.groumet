@@ -103,6 +103,7 @@ app.get('/api/equipe', (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////
 
+
 ///**ici on a créer un api qui consistera de supprimer un membre de l'équipe
 // la Methode : DELETE
 // EXEMPLE : localhost : 2007/api/equipe/4  */
@@ -141,7 +142,7 @@ app.delete('/api/equipe/:id',(req,res) =>{
 
 
 
-/////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -208,9 +209,10 @@ req.getConnection((erreur, connection) => {
 
 });
 
-
+/******************************************************************************************************* */
 /*ICI j'ajoute un fournisseur a ma table fournisseur
-"POST" signifie  par la suite post signifie l'endroit ou je peut fairenouveau*/
+"POST" signifie  par la suite post signifie l'endroit ou je peut faire nouveau*/
+/******************************************************************************************************* */
 
 app.post('/api/fournisseur', (req,res) => {
   res.send("POST reçu",req.body);
@@ -220,7 +222,114 @@ app.get('/api/fournisseur', (req,res) => {
   res.render("fournisseur");
 });
 
-//ici j'essaye d'afficherles information
+
+
+
+
+
+
+/*************************************************************************** */
+/**ici je veux récuperer les informations DE MON MODAL de formulaire coté backend */
+/************************************************************************** */
+
+app.post('/api/equipe', (req, res) => {
+console.log("corps de la requete :", req.body);
+
+const nomEquipe = req.body.nomEquipe;
+const responsableEquipe = req.body.responsableEquipe;
+const emailEquipe = req.body.mailEquipe;
+const telephoneEquipe = req.body.telephoneEquipe;
+const adressePostaleEquipe = req.body.adressePostaleEquipe;
+
+const requeteSql = "INSERT INTO equipe (nom, responsable, tel, mail, adresse_postale) VALUES (?, ?, ?, ?, ?)";
+
+const Ordreschamps = [
+    nomEquipe,
+    responsableEquipe,
+    telephoneEquipe,
+    emailEquipe,
+    adressePostaleEquipe
+];
+
+req.getConnection((erreur, connection) => {
+
+    if (erreur) {
+        console.log("erreur de connection a la bdd :", erreur);
+    } else {
+
+        connection.query(requeteSql, Ordreschamps, (erreur, nouveauequipier ) => {
+
+            if (erreur) {
+                console.log("erreur d'ajout équipier :", erreur);
+            } else {
+                console.log("Bravo Nouveau équipier ajouté");
+                res.redirect("/api/equipe");
+            }
+
+        });
+
+    }
+
+});
+});
+
+/*ici c'est pour rester a ma page apres l'envoi*/ 
+app.post('/ajouter-membre', (req, res) => {
+  console.log(req.body);
+  res.redirect('/equipe');
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get('/api/equipe', (req, res) => {
+
+    req.getConnection((erreur, connection) => {
+        if (erreur) {
+            console.log(erreur);
+        } else {
+            connection.query("SELECT * FROM equipe", [], (erreur, resultatequipe) => {
+                if (erreur){
+                    console.log("Erreur dans la requete", erreur);
+                } else {
+                    console.log("equipe : ", resultatequipe);
+                    res.render("equipe", { resultatequipe });
+                }
+            });
+        }
+    });
+
+});
+
+/*********************************************************************************************** */
+/*********************************************************************************************** */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

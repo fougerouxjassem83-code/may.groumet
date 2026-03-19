@@ -15,7 +15,7 @@ CREATE TABLE equipe (
     );
 
 
---icije créer ma table
+--ici je créer ma table
 
 INSERT INTO equipe 
 (nom,
@@ -65,7 +65,7 @@ date_revrutrment ) VALUES
 
 ---------------------------------------------------------------------------------------------------------------------------
 
--- ici je vais fairedfférants tables pour voir mes acquis et blocage--
+-- ici je vais faire dfférants tables pour voir mes acquis et blocage--
 
 
 CREATE TABLE plats (
