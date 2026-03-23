@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Nos plats</title>
+</head>
+<body>
+    
+
+
+    <!--navbar le menu de navigation-->
+
+    <%- include('navbar')-%>
+
+    <h1>Nos plats</h1>
+
+    <p>Voici la liste de nos plats disponibles :</p>
+
+    <ul>
+        <% resultatPlats.forEach(plat => { %>
+            <li><%= plat.nomPlat %> - <%= plat.descriptionPlat %> - Prix : <%= plat.prixPlat %>€</li>
+        <% }) %>
+    </ul>
+
+
+
+<!--affichage des plats-->
+<% resultatPlats.forEach(plat => { %>
+
+  <div class="card">
+    <h3><%= plat.nom %></h3>
+    <p><%= plat.description %></p>
+    <p><%= plat.prix %> €</p>
+    <p><%= plat.combien %></p>
+    <p><%= plat.quantité %></p>
+    <p><%= plat.ingrédient %></p>
+    <p><%= plat.fait_maison %></p>
+  </div>
+
+<% }) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

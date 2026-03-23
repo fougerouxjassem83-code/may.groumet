@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\MODEX\documents\modexwwm\may.groumet\views\equipe.ejs -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,88 +9,72 @@
 </head>
 <body>
 
-<!-- Navbar (menu de navigation) -->
 <%- include('navbar') %>
 
 <h2>Qui sont l'équipe May.gourmet ?</h2>
 
-<!-- Boucle pour afficher chaque membre -->
+<!-- ✅ CONTENEUR AJOUTÉ -->
+<div class="cards-container">
+
 <% resultatEquipe.forEach(resultat => { %>
   <div class="card">
 
-    <!-- Image du membre -->
     <img src="/image/gerant.jpg" width="200" height="180">
 
     <div class="container">
-      <!-- Nom + prénom -->
       <b><%= resultat.prenom %></b> <%= resultat.nom %>
       <br>
 
-      <!-- Bouton pour contacter ce membre -->
-<button class="openModalBtn" 
-  data-prenom="<%= resultat.prenom %>" 
-    data-nom="<%= resultat.nom %>" 
-      data-poste="<%= resultat.poste %>" 
-      data-presentation="<%= resultat.presentation %>">
-      Contacter
-    </button>
-</div>
+      <!-- bouton contacter -->
+      <button class="openModalBtn" 
+        data-prenom="<%= resultat.prenom %>" 
+        data-nom="<%= resultat.nom %>" 
+        data-poste="<%= resultat.poste %>" 
+        data-presentation="<%= resultat.presentation %>">
+        Contacter
+      </button>
+
+    </div>
 
   </div>
 <% }) %>
 
-<!-- Liens réseaux sociaux -->
+</div>
+
+<!-- réseaux -->
 <a href="#" class="fa fa-facebook"></a>
 <a href="#" class="fa fa-twitter"></a>
 
-
-
-<!-- Bouton pour ouvrir la popup -->
+<!-- bouton ajouter -->
 <button id="myBtn">Ajouter un fournisseur !</button>
 
-<!-- Fenêtre popup -->
+<!-- MODAL -->
 <div id="myModal" class="modal">
 
-  <!-- Contenu de la popup -->
   <div class="modal-content">
-    
-    <!-- En-tête -->
+
     <div class="modal-header">
       <span class="close">&times;</span>
       <h3>Ajouter un membre!</h3>
     </div>
 
-    <!-- Corps (formulaire) -->
     <div class="modal-body">
-  <form action="/api/equipe" method="post">
+      <form action="/api/equipe" method="post">
 
-    <label>Nom :</label><br>
-    <input type="text" name="nomEquipe" placeholder="votre nom ..." required><br><br>
+        <input type="text" name="nomEquipe" placeholder="Nom" required><br><br>
+        <input type="text" name="prenomEquipe" placeholder="Prénom" required><br><br>
+        <input type="email" name="mailEquipe" placeholder="Email" required><br><br>
+        <input type="text" name="telephoneEquipe" placeholder="Téléphone" required><br><br>
+        <input type="text" name="adressePostaleEquipe" placeholder="Adresse" required><br><br>
 
-    <label>Prenom :</label><br>
-    <input type="text" name="prenomEquipe" placeholder="Prenom" required><br><br>
+        <button type="submit">Ajouter</button>
 
-    <label>Email :</label><br>
-    <input type="email" name="mailEquipe" placeholder="Email du membre" required><br><br>
-
-    <label>Téléphone :</label><br>
-    <input type="text" name="telephoneEquipe" placeholder="Téléphone" required><br><br>
-
-    <label>Adresse :</label><br>
-    <input type="text" name="adressePostaleEquipe" placeholder="Adresse" required><br><br>
-
-    <button type="submit">Ajouter</button>
-  </form>
-</div>
-
-    <!-- Bas de la popup -->
-    <div class="modal-footer">
+      </form>
     </div>
 
   </div>
 </div>
 
-<!-- Script JS -->
 <script src="/javascript/script.js"></script>
 </body>
 </html>

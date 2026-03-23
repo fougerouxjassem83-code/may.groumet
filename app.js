@@ -309,6 +309,83 @@ app.get('/api/equipe', (req, res) => {
 
 
 
+/***************************************************************************************************** */
+/**ici j'ai recupéré les informations du plats a ma base de données */
+/***************************************************************************************************** */
+
+
+app.post('/api/plats', (req, res) => {
+console.log("corps de la requete :", req.body);
+
+const nomPlat = req.body.nomPlat;
+const descriptionPlat = req.body.descriptionPlat;
+const prixPlat = req.body.prixPlat;
+const combienPlat = req.body.combienPlat;
+const quantitéPlat = req.body.quantitéPlat;
+const ingrédientPlat = req.body.ingrédientPlat;
+const faitMaisonPlat = req.body.fait_maisonPlat;
+
+const requeteSql = `
+INSERT INTO plats (nom, description, prix, combien, quantité, ingrédient, fait_maison) 
+VALUES (?, ?, ?, ?, ?, ?, ?)
+`;
+const Ordreschamps = [
+    nomPlat,
+    descriptionPlat,
+    prixPlat,
+    combienPlat,
+    quantitéPlat,
+    ingrédientPlat,
+    faitMaisonPlat
+];
+
+req.getConnection((erreur, connection) => {
+
+    if (erreur) {
+        console.log("erreur de connection a la bdd :", erreur);
+    } else {
+
+        connection.query(requeteSql, Ordreschamps, (erreur, nouveauplat ) => {
+
+            if (erreur) {
+                console.log("erreur pour commander le plat :", erreur);
+            } else {
+                console.log("Bravo votre plat est  ajouté et commandé");
+                res.redirect("/api/plats");
+            }
+
+        });
+
+    }
+
+});
+});
+
+
+/**ici j'ai créer un fichier plats.ejs donc c'est ici que je vais afficher les plats */
+
+app.get('/api/plats', (req, res) => {
+    console.log("je passe dans la route api rest /api/plats");
+
+    req.getConnection((erreur, connection) => {
+        if (erreur) {
+            console.log(erreur);
+        } else {
+            connection.query("SELECT * FROM plats",[], (erreur, resultatPlats) => {
+            if (erreur){
+                console.log("Erreur dans la requete",erreur);
+            }else{
+                console.log("mes plats : ",resultatPlats)
+                res.render("plats", {resultatPlats}); /// ici je renvois les résultats 
+            }
+          });
+        }
+    });
+    
+});
+
+
+/**************************************************************************************************************** */ 
 
 
 
@@ -316,16 +393,7 @@ app.get('/api/equipe', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
+/************************************************************************* */
 
 
 

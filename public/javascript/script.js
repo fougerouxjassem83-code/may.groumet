@@ -1,34 +1,42 @@
+// modal
+const modal = document.getElementById("myModal");
 
-// Récupérer le modal
-var modal = document.getElementById("myModal");
+// bouton ajouter
+const btnAdd = document.getElementById("myBtn");
 
-// Récupérer le bouton qui ouvre le modal
-var btn = document.getElementById("myBtn");
+// boutons contacter
+const contactBtns = document.querySelectorAll(".openModalBtn");
 
-// Récupérer le <span> qui ferme le modal
-var span = document.getElementsByClassName("close")[0];
+// bouton fermer
+const span = document.querySelector(".close");
 
-// Quand l'utilisateur clique sur le bouton, ouvrir le modal
-btn.onclick = function() {
+// ouvrir modal (ajouter)
+btnAdd.onclick = function () {
   modal.style.display = "block";
-}
+};
 
-// Quand l'utilisateur clique sur <span> (x), fermer le modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+// ouvrir modal (contacter)
+contactBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
 
-// Quand l'utilisateur clique n'importe où en dehors du modal, fermer le modal
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+    modal.style.display = "block";
 
+    const prenom = btn.getAttribute("data-prenom");
+    const nom = btn.getAttribute("data-nom");
 
-
-
-app.post('/ajouter-membre', (req, res) => {
-  console.log(req.body);
-  res.redirect('/equipe');
+    console.log("Contact :", prenom, nom);
+  });
 });
+
+// fermer
+span.onclick = function () {
+  modal.style.display = "none";
+};
+
+// fermer dehors
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";}};
+
+
+
