@@ -8,6 +8,8 @@
 
 
 
+
+
 h2{
   text-align: center;
 
@@ -75,6 +77,20 @@ display: inline-flex;
   color: white;
 }
 
+/* Instagram */
+.fa-instagram {
+background: linear-gradient(80deg, #7017ff, #c500e9, #f80261, #FF11B9,#feb3fe,#fe3b36 220%,#ff6930,#ffd000);
+padding: 20px;
+font-size: 30px;
+width: 50px;
+text-align: center;
+text-decoration: none;
+color: white;
+}
+
+.fa-instagram:hover {
+opacity: 0.7;
+}
 
 
 /**********************************************************************/
@@ -163,3 +179,74 @@ display: inline-flex;
   background-color: aliceblue;
   color: white;}
   
+
+
+  /*ici je rajoute le modal pour modifier les fournisseurs (non fonctionnel pour le moment)*/
+
+  /* -------------------------------
+   Modal Modifier
+------------------------------- */
+.modalmodifier {
+  display: none; /* caché par défaut */
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); /* fond semi-transparent */
+}
+
+/* Contenu du modal */
+.modalmodifier .modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19);
+  animation: fadeIn 0.4s;
+}
+
+/* Header du modal */
+.modalmodifier .modal-header {
+  padding: 2px 16px;
+  background-color: aliceblue;
+  color: black;
+}
+
+/* Corps du modal */
+.modalmodifier .modal-body {
+  padding: 2px 16px;
+}
+
+/* Bouton fermer */
+#closeModifier {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#closeModifier:hover,
+#closeModifier:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Footer (optionnel) */
+.modalmodifier .modal-footer {
+  padding: 2px 16px;
+  background-color: aliceblue;
+  color: white;
+}
+
+/* Animation fadeIn */
+@keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
