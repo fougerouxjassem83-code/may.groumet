@@ -1,76 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
+    <!-- Encodage pour bien gérer les accents -->
     <meta charset="UTF-8">
+
+    <!-- Permet d'adapter la page aux écrans de téléphone et PC -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fournisseur</title>
+
+    <!-- Titre de l'onglet dans le navigateur -->
+    <title>Fournisseur</title>
 </head>
 <body>
-  
-    <%- include('navbar')-%>
-<header>
-<div id="logo">logo</div>
-<nav id="main">
-<a href="acceuil.ejs">acceuil</a>
-<a href="equipe.ejs">equipe</a>
-<a href="fournisseur.ejs">fournisseur</a>
-<a href="contact">contact</a>
 
+    <!-- Inclusion de la barre de navigation avec EJS -->
+    <%- include('navbar') -%>
 
-</nav>
+    <!-- En-tête de la page (logo + menu) -->
+    <header>
+        <!-- Zone pour mettre un logo (image ou texte) -->
+        <div id="logo">logo</div>
 
-</header>
+        <!-- Menu principal de navigation -->
+        <nav id="main">
+            <!-- Liens vers les différentes pages du site -->
+            <a href="acceuil.ejs">acceuil</a>
+            <a href="equipe.ejs">equipe</a>
+            <a href="fournisseur.ejs">fournisseur</a>
+            <a href="contact">contact</a>
+        </nav>
+    </header>
 
+    <!-- Formulaire pour ajouter un fournisseur -->
+    <!-- Les données seront envoyées à la route POST /api/fournisseur -->
+    <!-- Méthode POST = on envoie des données au serveur -->
+    <form action="/api/fournisseur" method="post">
 
+        <!-- Champ pour le nom du fournisseur -->
+        <label>Nom</label>
+        <input type="text" name="nomFournisseur" placeholder="votre nom ..." required>
 
+        <!-- Champ pour le responsable du fournisseur -->
+        <label>Responsable</label>
+        <input type="text" name="responsableFournisseur" placeholder="Responsable" required>
 
+        <!-- Champ pour l'email du fournisseur -->
+        <label>Email :</label>
+        <input type="email" name="mailFournisseur" placeholder="Email du fournisseur" required>
 
+        <!-- Champ pour le téléphone du fournisseur -->
+        <label>Téléphone :</label>
+        <input type="text" name="telephoneFournisseur" placeholder="Téléphone" required>
 
-   <!--ici je je c créer ce un  --> 
-<form action="/api/fournisseur" method="post">
+        <!-- Champ pour l'adresse postale du fournisseur -->
+        <label>Adresse :</label>
+        <input type="text" name="adresseFournisseur" placeholder="Adresse" required>
 
-  <label>Nom</label>
-  <input type="text" name="nomFournisseur" placeholder="votre nom ...">
+        <!-- Bouton pour envoyer le formulaire -->
+        <button type="submit">Envoyer</button>
 
-  <label>Responsable</label>
-  <input type="text" name="responsableFournisseur" placeholder="Responsable">
-
-  <label>Email :</label>
-  <input type="email" name="mailFournisseur" placeholder="Email du fournisseur">
-
-  <label>Téléphone :</label>
-  <input type="text" name="telephoneFournisseur" placeholder="Téléphone">
-
-  <label>Adresse :</label>
-  <input type="text" name="adresseFournisseur" placeholder="Adresse">
-
-  <button type="submit">Envoyer</button>
-
-</form>
-
-  
-
-
-</form>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </form>
 
 </body>
 </html>

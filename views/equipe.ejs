@@ -1,104 +1,142 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- On indique l'encodage des caractères (accents, etc.) -->
     <meta charset="UTF-8">
+    <!-- Rendre la page adaptée aux écrans de téléphone et PC -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titre de l'onglet dans le navigateur -->
     <title>Mon équipe</title>
+
+    <!-- Lien vers ton fichier CSS pour le style de la page -->
     <link rel="stylesheet" href="/css/equipe.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Lien vers la bibliothèque d'icônes Font Awesome (pour les logos des réseaux sociaux) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
-<%- include('navbar') %>
+    <!-- Inclusion de la barre de navigation avec EJS -->
+    <%- include('navbar') %>
 
-<h2>Qui sont l'équipe May.gourmet ?</h2>
+    <!-- Titre principal de la page -->
+    <h2>Qui sont l'équipe May.gourmet ?</h2>
 
-<div class="cards-container">
+    <!-- Conteneur principal qui va regrouper toutes les cartes de membre -->
+    <div class="cards-container">
 
-  <% resultatEquipe.forEach(resultat => { %>
-    <div class="card">
+        <!-- Boucle EJS : on parcourt tous les membres de l'équipe contenus dans resultatEquipe -->
+        <% resultatEquipe.forEach(resultat => { %>
 
-      <img src="/image/gerant.jpg" width="200" height="180">
+            <!-- Carte pour un membre de l'équipe -->
+            <div class="card">
 
-      <div class="container">
-        <b><%= resultat.prenom %></b> <%= resultat.nom %> - <i><%= resultat.poste %></i><br>
-        <%= resultat.presentation %> | <%= resultat.date_revrutrment %> | <%= resultat.mail %> | <%= resultat.telephone %>
-        <br><br>
+                <!-- Image du membre (pour l'instant une image fixe "gerant.jpg") -->
+                <img src="/image/gerant.jpg" width="200" height="180">
 
-        <button class="openModalBtn"
-          data-id="<%= resultat.id %>"
-          data-nom="<%= resultat.nom %>"
-          data-prenom="<%= resultat.prenom %>"
-          data-poste="<%= resultat.poste %>"
-          data-mail="<%= resultat.mail %>"
-          data-telephone="<%= resultat.telephone %>"
-          data-presentation="<%= resultat.presentation %>"
-          data-date_revrutrment="<%= resultat.date_revrutrment %>">
-          Modifier
-        </button>
+                <!-- Conteneur du texte à l'intérieur de la carte -->
+                <div class="container">
+                    <!-- Affichage du prénom en gras, du nom et du poste -->
+                    <b><%= resultat.prenom %></b> <%= resultat.nom %> - <i><%= resultat.poste %></i><br>
 
-        <form action="/api/equipe/<%= resultat.id %>?_method=DELETE" method="post" style="display:inline;">
-          <button type="submit">Supprimer</button>
-        </form>
+                    <!-- Affichage des autres infos du membre sur une même ligne -->
+                    <%= resultat.presentation %> | <%= resultat.date_revrutrment %> | <%= resultat.mail %> | <%= resultat.telephone %>
+                    <br><br>
 
-      </div>
+                    <!-- Bouton pour ouvrir la modale de modification avec des attributs data-* 
+                         pour envoyer les infos du membre au JavaScript -->
+                    <button class="openModalBtn"
+                        data-id="<%= resultat.id %>"
+                        data-nom="<%= resultat.nom %>"
+                        data-prenom="<%= resultat.prenom %>"
+                        data-poste="<%= resultat.poste %>"
+                        data-mail="<%= resultat.mail %>"
+                        data-telephone="<%= resultat.telephone %>"
+                        data-presentation="<%= resultat.presentation %>"
+                        data-date_revrutrment="<%= resultat.date_revrutrment %>">
+                        Modifier
+                    </button>
+
+                    <!-- Formulaire pour supprimer un membre
+                         La méthode DELETE est simulée avec _method=DELETE -->
+                    <form action="/api/equipe/<%= resultat.id %>?_method=DELETE" method="post" style="display:inline;">
+                        <button type="submit">Supprimer</button>
+                    </form>
+
+                </div>
+            </div>
+        <% }) %>
+
     </div>
-  <% }) %>
 
-</div>
+    <!-- Liens vers les réseaux sociaux avec les icônes Font Awesome -->
+    <a href="#" class="fa fa-facebook"></a>
+    <a href="#" class="fa fa-twitter"></a>
+    <a href="#" class="fa fa-instagram"></a>
 
-<!-- Réseaux -->
-<a href="#" class="fa fa-facebook"></a>
-<a href="#" class="fa fa-twitter"></a>
-<a href="#" class="fa fa-instagram"></a>
+    <!-- Bouton pour ouvrir la modale d'ajout d'un nouveau membre -->
+    <button id="myBtn">Ajouter un membre !</button>
 
-<!-- Bouton ajouter -->
-<button id="myBtn">Ajouter un membre !</button>
+    <!-- Fenêtre modale pour AJOUTER un membre -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <!-- En‑tête de la modale avec le titre et la croix de fermeture -->
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h3>Ajouter un membre !</h3>
+            </div>
 
-<!-- Modal Ajouter -->
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h3>Ajouter un membre !</h3>
+            <!-- Corps de la modale : formulaire d'ajout -->
+            <div class="modal-body">
+                <!-- Formulaire envoyé en POST vers l'API /api/equipe -->
+                <form action="/api/equipe" method="post">
+                    <!-- Chaque champ permet de saisir une info sur le nouveau membre -->
+                    <input type="text"   name="nomEquipe"              placeholder="Nom"        required><br><br>
+                    <input type="text"   name="prenomEquipe"           placeholder="Prénom"     required><br><br>
+                    <input type="email"  name="mailEquipe"             placeholder="Email"      required><br><br>
+                    <input type="text"   name="telephoneEquipe"        placeholder="Téléphone"  required><br><br>
+                    <input type="text"   name="adressePostaleEquipe"   placeholder="Adresse"    required><br><br>
+
+                    <!-- Bouton pour valider l'ajout du nouveau membre -->
+                    <button type="submit">Ajouter</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
-      <form action="/api/equipe" method="post">
-        <input type="text"  name="nomEquipe"          placeholder="Nom"       required><br><br>
-        <input type="text"  name="prenomEquipe"        placeholder="Prénom"    required><br><br>
-        <input type="email" name="mailEquipe"          placeholder="Email"     required><br><br>
-        <input type="text"  name="telephoneEquipe"     placeholder="Téléphone" required><br><br>
-        <input type="text"  name="adressePostaleEquipe" placeholder="Adresse"  required><br><br>
-        <button type="submit">Ajouter</button>
-      </form>
-    </div>
-  </div>
-</div>
 
-<!-- Modal Modifier -->
-<div id="myModal2" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h3>Modifier un membre !</h3>
-    </div>
-    <div class="modal-body">
-      <form id="form-modifier-membre">
-        <input type="hidden" id="editId">
-        <input type="text"  id="editNom"              placeholder="Nom"                  required><br><br>
-        <input type="text"  id="editPrenom"            placeholder="Prénom"               required><br><br>
-        <input type="email" id="editMail"              placeholder="Email"                required><br><br>
-        <input type="text"  id="editTelephone"         placeholder="Téléphone"            required><br><br>
-        <input type="text"  id="editPoste"             placeholder="Poste"                required><br><br>
-        <input type="text"  id="editPresentation"      placeholder="Présentation"                 ><br><br>
-        <input type="date"  id="editdate_revrutrment"  placeholder="Date de recrutement"  required><br><br>
-        <button type="submit">Modifier</button>
-      </form>
-    </div>
-  </div>
-</div>
+    <!-- Fenêtre modale pour MODIFIER un membre existant -->
+    <div id="myModal2" class="modal">
+        <div class="modal-content">
+            <!-- En‑tête de la modale de modification -->
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h3>Modifier un membre !</h3>
+            </div>
 
-<!-- Script tout en bas, après le HTML -->
-<script src="/javascript/script.js"></script>
+            <!-- Corps de la modale : formulaire de modification -->
+            <div class="modal-body">
+                <!-- Le formulaire sera géré en JavaScript (id="form-modifier-membre") -->
+                <form id="form-modifier-membre">
+                    <!-- Champ caché pour stocker l'id du membre à modifier -->
+                    <input type="hidden" id="editId">
+
+                    <!-- Champs pré-remplis avec les données du membre (via JavaScript) -->
+                    <input type="text"   id="editNom"                 placeholder="Nom"                  required><br><br>
+                    <input type="text"   id="editPrenom"              placeholder="Prénom"              required><br><br>
+                    <input type="email"  id="editMail"                placeholder="Email"               required><br><br>
+                    <input type="text"   id="editTelephone"           placeholder="Téléphone"           required><br><br>
+                    <input type="text"   id="editPoste"               placeholder="Poste"               required><br><br>
+                    <input type="text"   id="editPresentation"        placeholder="Présentation"><br><br>
+                    <input type="date"   id="editdate_revrutrment"    placeholder="Date de recrutement" required><br><br>
+
+                    <!-- Bouton pour envoyer les nouvelles données (mise à jour) -->
+                    <button type="submit">Modifier</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fichier JavaScript chargé à la fin pour gérer les modales et les événements -->
+    <script src="/javascript/script.js"></script>
 </body>
 </html>

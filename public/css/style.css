@@ -8,11 +8,33 @@ h1,p{
 
 }
 
-body {
-  background-image: url('/maygourmet.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
+
+/* ma navbar */
+/* Navbar */
+header {
+  overflow: hidden;
+  border: 1px solid #978d00;
+  background-color: #f1f1f1;
 }
 
+#main {
+  display: flex;
+}
+
+#main a {
+  display: block;
+  background-color: inherit;
+  color: #333;
+  text-decoration: none;
+  padding: 14px 16px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+#main a:hover {
+  background-color: #ddd;
+}
+
+#main a.active {
+  background-color: #ccc;
+}

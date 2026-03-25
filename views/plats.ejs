@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/plats.css">
+     <link rel="stylesheet" href="/css/style.css">
     <title> Nos plats</title>
 </head>
 <body>
@@ -13,22 +15,19 @@
 
     <%- include('navbar')-%>
 
-    <h1>Nos plats</h1>
+   <h1>Nos plats</h1>
 
-    <p>Voici la liste de nos plats disponibles :</p>
-
-    <ul>
-        <% resultatPlats.forEach(plat => { %>
-            <li><%= plat.nomPlat %> - <%= plat.descriptionPlat %> - Prix : <%= plat.prixPlat %>€</li>
-        <% }) %>
-    </ul>
-
-
-
-<!--affichage des plats-->
+<!-- affichage des plats -->
 <% resultatPlats.forEach(plat => { %>
 
   <div class="card">
+    <!-- Photo du plat -->
+    <% if (plat.photo) { %>
+      <img src="pilao.avif" alt="<%= plat.nom %>" class="card-img">
+    <% } else { %>
+      <img src="/images/default-plat.jpg" alt="Photo non disponible" class="card-img">
+    <% } %>
+
     <h3><%= plat.nom %></h3>
     <p><%= plat.description %></p>
     <p><%= plat.prix %> €</p>
@@ -61,4 +60,5 @@
 
 
 </body>
+<script src="/public/js/plats.js"></script>
 </html>
