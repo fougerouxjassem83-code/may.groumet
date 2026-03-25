@@ -6,7 +6,7 @@ const myConnection = require('express-myconnection');
 // ================================
 // CONFIG BDD
 // ================================
-const optionConnectionBasedeDonnees =  {
+const optionConnectionBasedeDonnees = {
     host: "localhost",
     user: "root",
     password: "Thevie@976",
@@ -21,8 +21,8 @@ app.use(myConnection(mysql2, optionConnectionBasedeDonnees, "pool"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static('public'));
-app.set('views','./views');
-app.set('view engine','ejs');
+app.set('views', './views');
+app.set('view engine', 'ejs');
 
 // ================================
 // ROUTES ACCUEIL
@@ -39,9 +39,9 @@ app.get('/api/acceuil', (req, res) => {
 // Liste équipe
 app.get('/api/equipe', (req, res) => {
     req.getConnection((err, connection) => {
-        if(err) return console.log(err);
+        if (err) return console.log(err);
         connection.query("SELECT * FROM equipe", [], (err, resultatEquipe) => {
-            if(err) return console.log(err);
+            if (err) return console.log(err);
             res.render("equipe", { resultatEquipe });
         });
     });
@@ -50,47 +50,26 @@ app.get('/api/equipe', (req, res) => {
 // Modifier membre
 app.put('/api/equipe/:id', (req, res) => {
     const { nom, prenom, mail, telephone, poste, presentation, date_revrutrment } = req.body;
-    const { id } = req.params; // <- récupère l'ID depuis l'URL
+    const { id } = req.params;
 
     const sql = `
         UPDATE equipe
-        SET prenom = ?, nom = ?, mail = ?, telephone = ?, poste = ?, presentation = ?, date_revrutment = ?
+        SET nom = ?, prenom = ?, mail = ?, telephone = ?, poste = ?, presentation = ?, date_revrutrment = ?
         WHERE id = ?
     `;
-
-    // Mettre les valeurs dans le même ordre que les ? de la requête
-    const values = [prenom, nom, mail, telephone, poste, presentation, date_revrutrment, id];
+    const values = [nom, prenom, mail, telephone, poste, presentation, date_revrutrment, id];
 
     req.getConnection((err, connection) => {
-        if(err) return console.log(err);
-
-        console.log(values); // vérifie que toutes les valeurs sont bien définies
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ success: false, message: "Erreur de connexion BDD" });
+        }
         connection.query(sql, values, (err, result) => {
-            if(err) return console.log(err);
-            res.redirect('/api/equipe');
-        });
-    });
-});// Modifier membre
-app.put('/api/equipe/:id', (req, res) => {
-    const { nom, prenom, mail, telephone, poste, presentation, date_revrutrment } = req.body;
-    const { id } = req.params; // <- récupère l'ID depuis l'URL
-
-    const sql = `
-        UPDATE equipe
-        SET prenom = ?, nom = ?, mail = ?, telephone = ?, poste = ?, presentation = ?, date_revrutment = ?
-        WHERE id = ?
-    `;
-
-    // Mettre les valeurs dans le même ordre que les ? de la requête
-    const values = [prenom, nom, mail, telephone, poste, presentation, date_revrutrment, id];
-
-    req.getConnection((err, connection) => {
-        if(err) return console.log(err);
-
-        console.log(values); // vérifie que toutes les valeurs sont bien définies
-        connection.query(sql, values, (err, result) => {
-            if(err) return console.log(err);
-            res.redirect('/api/equipe');
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ success: false, message: "Erreur SQL" });
+            }
+            res.json({ success: true });
         });
     });
 });
@@ -101,10 +80,33 @@ app.delete('/api/equipe/:id', (req, res) => {
     const sql = "DELETE FROM equipe WHERE id = ?";
 
     req.getConnection((err, connection) => {
-        if(err) return console.log(err);
+        if (err) return console.log(err);
         connection.query(sql, [id], (err, result) => {
-            if(err) return console.log(err);
+            if (err) return console.log(err);
             res.status(200).redirect("/api/equipe");
+        });
+    });
+});
+
+// Ajouter membre
+app.post('/api/equipe', (req, res) => {
+    const { nomEquipe, prenomEquipe, mailEquipe, telephoneEquipe, adressePostaleEquipe } = req.body;
+
+    const sql = `
+        INSERT INTO equipe (nom, prenom, mail, telephone, poste, presentation, date_revrutrment)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    const values = [nomEquipe, prenomEquipe, mailEquipe, telephoneEquipe, '', adressePostaleEquipe, ''];
+
+    req.getConnection((err, connection) => {
+        if (err) return console.log(err);
+        connection.query(sql, values, (err, result) => {
+            if (err) {
+                console.log("ERREUR SQL :", err);
+            } else {
+                console.log("Membre ajouté");
+                res.redirect("/api/equipe");
+            }
         });
     });
 });
@@ -113,27 +115,25 @@ app.delete('/api/equipe/:id', (req, res) => {
 // ROUTES FOURNISSEUR
 // ================================
 
-// Liste fournisseurs
 app.get('/api/fournisseur', (req, res) => {
     req.getConnection((err, connection) => {
-        if(err) return console.log(err);
+        if (err) return console.log(err);
         connection.query("SELECT * FROM fournisseur", [], (err, resultatfournisseur) => {
-            if(err) return console.log(err);
+            if (err) return console.log(err);
             res.render("fournisseur", { resultatfournisseur });
         });
     });
 });
 
-// Ajouter fournisseur
 app.post('/api/fournisseur', (req, res) => {
     const { nomFournisseur, responsableFournisseur, mailFournisseur, telephoneFournisseur, adresseFournisseur } = req.body;
     const sql = "INSERT INTO fournisseur (nom, responsable, tel, mail, adresse_postale) VALUES (?, ?, ?, ?, ?)";
     const values = [nomFournisseur, responsableFournisseur, telephoneFournisseur, mailFournisseur, adresseFournisseur];
 
     req.getConnection((err, connection) => {
-        if(err) return console.log(err);
+        if (err) return console.log(err);
         connection.query(sql, values, (err, result) => {
-            if(err) return console.log(err);
+            if (err) return console.log(err);
             res.redirect("/api/fournisseur");
         });
     });
@@ -143,65 +143,26 @@ app.post('/api/fournisseur', (req, res) => {
 // ROUTES PLATS
 // ================================
 
-// Liste plats
 app.get('/api/plats', (req, res) => {
     req.getConnection((err, connection) => {
-        if(err) return console.log(err);
+        if (err) return console.log(err);
         connection.query("SELECT * FROM plats", [], (err, resultatPlats) => {
-            if(err) return console.log(err);
+            if (err) return console.log(err);
             res.render("plats", { resultatPlats });
         });
     });
 });
 
-// Ajouter plat
 app.post('/api/plats', (req, res) => {
     const { nomPlat, descriptionPlat, prixPlat, combienPlat, quantitéPlat, ingrédientPlat, fait_maisonPlat } = req.body;
     const sql = "INSERT INTO plats (nom, description, prix, combien, quantité, ingrédient, fait_maison) VALUES (?, ?, ?, ?, ?, ?, ?)";
     const values = [nomPlat, descriptionPlat, prixPlat, combienPlat, quantitéPlat, ingrédientPlat, fait_maisonPlat];
 
     req.getConnection((err, connection) => {
-        if(err) return console.log(err);
+        if (err) return console.log(err);
         connection.query(sql, values, (err, result) => {
-            if(err) return console.log(err);
+            if (err) return console.log(err);
             res.redirect("/api/plats");
-        });
-    });
-});
-
-// Ajouter membre
-app.post('/api/equipe', (req, res) => {
-
-    const nomEquipe = req.body.nomEquipe;
-    const prenomEquipe = req.body.prenomEquipe;
-    const mailEquipe = req.body.mailEquipe;
-    const telephoneEquipe = req.body.telephoneEquipe;
-    const adressePostaleEquipe = req.body.adressePostaleEquipe;
-
-    const sql = `
-    INSERT INTO equipe (nom, prenom, mail, telephone, poste, presentation, date_recrutement)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    const values = [
-        nomEquipe,
-        prenomEquipe,
-        mailEquipe,
-        telephoneEquipe,
-        mailEquipe,
-        adressePostaleEquipe
-    ];
-
-    req.getConnection((err, connection) => {
-        if(err) return console.log(err);
-
-        connection.query(sql, values, (err, result) => {
-            if(err){
-                console.log("ERREUR SQL :", err);
-            } else {
-                console.log("Membre ajouté");
-                res.redirect("/api/equipe");
-            }
         });
     });
 });

@@ -1,124 +1,101 @@
-// -------------------------------
-// Modal Ajouter
-// -------------------------------
-const modalAdd = document.getElementById("myModal");    // modal Ajouter
-const btnAdd = document.getElementById("myBtn");       // bouton Ajouter
-const closeAdd = modalAdd.querySelector(".close");     // bouton fermer
+document.addEventListener("DOMContentLoaded", () => {
 
-btnAdd.onclick = () => {
-  modalAdd.style.display = "block";
-};
+  // -------------------------------
+  // Modal Ajouter
+  // -------------------------------
+  const modalAdd = document.getElementById("myModal");
+  const btnAdd   = document.getElementById("myBtn");
+  const closeAdd = modalAdd.querySelector(".close");
 
-closeAdd.onclick = () => {
-  modalAdd.style.display = "none";
-};
+  btnAdd.onclick  = () => { modalAdd.style.display = "block"; };
+  closeAdd.onclick = () => { modalAdd.style.display = "none"; };
 
+  // -------------------------------
+  // Modal Modifier
+  // -------------------------------
+  const modal2        = document.getElementById("myModal2");
+  const openModalBtns = document.querySelectorAll(".openModalBtn");
 
+  const editId           = document.getElementById("editId");
+  const editNom          = document.getElementById("editNom");
+  const editPrenom       = document.getElementById("editPrenom");
+  const editMail         = document.getElementById("editMail");
+  const editTelephone    = document.getElementById("editTelephone");
+  const editPoste        = document.getElementById("editPoste");
+  const editPresentation = document.getElementById("editPresentation");
+  const editAdresse      = document.getElementById("editdate_revrutrment");
 
+  openModalBtns.forEach(button => {
+    button.addEventListener("click", function () {
+      modal2.style.display = "block";
 
-
-
-
-
-
-// récupérer le modal modifier
-const modal2 = document.getElementById("myModal2");
-
-// boutons "modifier"
-const openModalBtns = document.querySelectorAll(".openModalBtn");
-
-// champs du formulaire
-const editId = document.getElementById("editId");
-const editNom = document.getElementById("editNom");
-const editPrenom = document.getElementById("editPrenom");
-const editMail = document.getElementById("editMail");
-const editTelephone = document.getElementById("editTelephone");
-const editAdresse = document.getElementById("editAdresse");
-
-// ouvrir + remplir
-openModalBtns.forEach(button => {
-  button.addEventListener("click", function () {
-    modal2.style.display = "block";
-
-    editId.value = this.dataset.id || "";
-    editNom.value = this.dataset.nom || "";
-    editPrenom.value = this.dataset.prenom || "";
-    editMail.value = this.dataset.mail || "";
-    editTelephone.value = this.dataset.telephone || "";
-    editAdresse.value = this.dataset.adresse || "";
+      editId.value           = this.dataset.id               || "";
+      editNom.value          = this.dataset.nom              || "";
+      editPrenom.value       = this.dataset.prenom           || "";
+      editMail.value         = this.dataset.mail             || "";
+      editTelephone.value    = this.dataset.telephone        || "";
+      editPoste.value        = this.dataset.poste            || "";
+      editPresentation.value = this.dataset.presentation     || "";
+      editAdresse.value      = this.dataset.date_revrutrment || "";
+    });
   });
-});
 
-
-
-
-
-// Fonction fetch PUT pour modifier un membre
-async function modifierMembre(id, data) {
+  // -------------------------------
+  // Fonction PUT modifier membre
+  // -------------------------------
+  async function modifierMembre(id, data) {
     try {
-        const response = await fetch(`/api/equipe/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+      const response = await fetch(`/api/equipe/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
-        if (!response.ok) {
-            const errText = await response.text();
-            throw new Error(`Erreur serveur : ${errText}`);
-        }
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Erreur serveur : ${errText}`);
+      }
 
-        console.log('Membre modifié avec succès');
-        window.location.reload(); // recharge la page ou mettre à jour l'UI dynamiquement
+      const result = await response.json();
+      if (result.success) {
+        modal2.style.display = "none";
+        window.location.reload();
+      }
     } catch (error) {
-        console.error('Erreur lors de la modification :', error);
-        alert('Impossible de modifier le membre, vérifie les champs et réessaie.');
+      console.error('Erreur lors de la modification :', error);
+      alert('Impossible de modifier le membre, vérifie les champs et réessaie.');
     }
-}
+  }
 
-// Écoute du formulaire
-const formModifier = document.getElementById('form-modifier-membre');
-formModifier.addEventListener('submit', (e) => {
-    e.preventDefault(); // empêche le submit classique
+  // Écoute du formulaire modifier
+  const formModifier = document.getElementById('form-modifier-membre');
+  formModifier.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-    const id = document.getElementById('editId').value;
+    const id   = editId.value;
     const data = {
-        nom: document.getElementById('editNom').value,
-        prenom: document.getElementById('editPrenom').value,
-        mail: document.getElementById('editMail').value,
-        telephone: document.getElementById('editTelephone').value,
-        poste: document.getElementById('editAdresse').value, // ou poste selon ta table
-        presentation: '', // si tu as un champ présentation, sinon vide
-        date_revrutrment: new Date().toISOString().split('T')[0] // exemple, ou récupérer d'un input
+      nom:              editNom.value,
+      prenom:           editPrenom.value,
+      mail:             editMail.value,
+      telephone:        editTelephone.value,
+      poste:            editPoste.value,
+      presentation:     editPresentation.value,
+      date_revrutrment: editAdresse.value
     };
 
     modifierMembre(id, data);
-});
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fermer
-document.querySelector("#myModal2 .close").onclick = function () {
-  modal2.style.display = "none";
-};
-
-// fermer en cliquant dehors
-window.onclick = function (event) {
-  if (event.target == modal2) {
+  // -------------------------------
+  // Fermer modals
+  // -------------------------------
+  document.querySelector("#myModal2 .close").onclick = function () {
     modal2.style.display = "none";
-  }
-};
+  };
 
+  window.onclick = function (event) {
+    if (event.target == modal2)   modal2.style.display   = "none";
+    if (event.target == modalAdd) modalAdd.style.display = "none";
+  };
+
+}); // fin DOMContentLoaded

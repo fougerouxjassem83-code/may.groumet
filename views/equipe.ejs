@@ -12,95 +12,93 @@
 <%- include('navbar') %>
 
 <h2>Qui sont l'équipe May.gourmet ?</h2>
-<!-- CONTENEUR AJOUTÉ -->
+
 <div class="cards-container">
 
-<% resultatEquipe.forEach(resultat => { %>
-  <div class="card">
+  <% resultatEquipe.forEach(resultat => { %>
+    <div class="card">
 
-    <img src="/image/gerant.jpg" width="200" height="180">
+      <img src="/image/gerant.jpg" width="200" height="180">
 
-    <div class="container">
-      <b><%= resultat.prenom %></b> <%= resultat.nom %>
-      <br>
+      <div class="container">
+        <b><%= resultat.prenom %></b> <%= resultat.nom %> - <i><%= resultat.poste %></i><br>
+        <%= resultat.presentation %> | <%= resultat.date_revrutrment %> | <%= resultat.mail %> | <%= resultat.telephone %>
+        <br><br>
 
-      <!-- bouton contacter -->
-      <button class="openModalBtn" 
-        data-prenom="<%= resultat.prenom %>" 
-        data-nom="<%= resultat.nom %>" 
-        data-poste="<%= resultat.poste %>" 
-        data-presentation="<%= resultat.presentation %>">
-        modi
-      </button>
+        <button class="openModalBtn"
+          data-id="<%= resultat.id %>"
+          data-nom="<%= resultat.nom %>"
+          data-prenom="<%= resultat.prenom %>"
+          data-poste="<%= resultat.poste %>"
+          data-mail="<%= resultat.mail %>"
+          data-telephone="<%= resultat.telephone %>"
+          data-presentation="<%= resultat.presentation %>"
+          data-date_revrutrment="<%= resultat.date_revrutrment %>">
+          Modifier
+        </button>
 
+        <form action="/api/equipe/<%= resultat.id %>?_method=DELETE" method="post" style="display:inline;">
+          <button type="submit">Supprimer</button>
+        </form>
+
+      </div>
     </div>
-
-  </div>
-<% }) %>
+  <% }) %>
 
 </div>
 
-<!-- réseaux -->
+<!-- Réseaux -->
 <a href="#" class="fa fa-facebook"></a>
 <a href="#" class="fa fa-twitter"></a>
 <a href="#" class="fa fa-instagram"></a>
-<!-- bouton ajouter -->
-<button id="myBtn">Ajouter un fournisseur !</button>
 
-<!-- MODAL -->
+<!-- Bouton ajouter -->
+<button id="myBtn">Ajouter un membre !</button>
+
+<!-- Modal Ajouter -->
 <div id="myModal" class="modal">
-
   <div class="modal-content">
-
     <div class="modal-header">
       <span class="close">&times;</span>
-      <h3>Ajouter un membre!</h3>
+      <h3>Ajouter un membre !</h3>
     </div>
-
     <div class="modal-body">
       <form action="/api/equipe" method="post">
-
-        <input type="text" name="nomEquipe" placeholder="Nom" required><br><br>
-        <input type="text" name="prenomEquipe" placeholder="Prenom" required><br><br>
-        <input type="email" name="mailEquipe" placeholder="Email" required><br><br>
-        <input type="text" name="telephoneEquipe" placeholder="Téléphone" required><br><br>
-        <input type="text" name="adressePostaleEquipe" placeholder="Adresse" required><br><br>
-
+        <input type="text"  name="nomEquipe"          placeholder="Nom"       required><br><br>
+        <input type="text"  name="prenomEquipe"        placeholder="Prénom"    required><br><br>
+        <input type="email" name="mailEquipe"          placeholder="Email"     required><br><br>
+        <input type="text"  name="telephoneEquipe"     placeholder="Téléphone" required><br><br>
+        <input type="text"  name="adressePostaleEquipe" placeholder="Adresse"  required><br><br>
         <button type="submit">Ajouter</button>
-
       </form>
     </div>
-
   </div>
 </div>
 
-<!-- Modal 2-->
+<!-- Modal Modifier -->
 <div id="myModal2" class="modal">
-
   <div class="modal-content">
-
     <div class="modal-header">
       <span class="close">&times;</span>
-      <h3>Modifier un membre!</h3>
+      <h3>Modifier un membre !</h3>
     </div>
-
     <div class="modal-body">
-      <form action="/api/equipe" method="post">
-
-        <input type="hidden" name="id" id="editId">
-        <input type="text" name="nomEquipe" id="editNom" placeholder="Nom" required><br><br>
-        <input type="text" name="prenomEquipe" id="editPrenom" placeholder="Prénom" required><br><br>
-        <input type="email" name="mailEquipe" id="editMail" placeholder="Email" required><br><br>
-        <input type="text" name="telephoneEquipe" id="editTelephone" placeholder="Téléphone" required><br><br>
-        <input type="text" name="adressePostaleEquipe" id="editAdresse" placeholder="Adresse" required><br><br>
-
-        <button type="submit" onclick=" confirmerModification()">Modifier</button>
-        
+      <form id="form-modifier-membre">
+        <input type="hidden" id="editId">
+        <input type="text"  id="editNom"              placeholder="Nom"                  required><br><br>
+        <input type="text"  id="editPrenom"            placeholder="Prénom"               required><br><br>
+        <input type="email" id="editMail"              placeholder="Email"                required><br><br>
+        <input type="text"  id="editTelephone"         placeholder="Téléphone"            required><br><br>
+        <input type="text"  id="editPoste"             placeholder="Poste"                required><br><br>
+        <input type="text"  id="editPresentation"      placeholder="Présentation"                 ><br><br>
+        <input type="date"  id="editdate_revrutrment"  placeholder="Date de recrutement"  required><br><br>
+        <button type="submit">Modifier</button>
       </form>
     </div>
-
+  </div>
 </div>
 
+<!-- Script tout en bas, après le HTML -->
 <script src="/javascript/script.js"></script>
 </body>
 </html>
