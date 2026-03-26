@@ -43,6 +43,7 @@
                     <%= resultat.presentation %> | <%= resultat.date_revrutrment %> | <%= resultat.mail %> | <%= resultat.telephone %>
                     <br><br>
 
+
                     <!-- Bouton pour ouvrir la modale de modification avec des attributs data-* 
                          pour envoyer les infos du membre au JavaScript -->
                     <button class="openModalBtn"
@@ -51,17 +52,14 @@
                         data-prenom="<%= resultat.prenom %>"
                         data-poste="<%= resultat.poste %>"
                         data-mail="<%= resultat.mail %>"
-                        data-telephone="<%= resultat.telephone %>"
+                        data-telephone="tel:<%= resultat.telephone %>"
                         data-presentation="<%= resultat.presentation %>"
                         data-date_revrutrment="<%= resultat.date_revrutrment %>">
                         Modifier
                     </button>
 
-                    <!-- Formulaire pour supprimer un membre
-                         La méthode DELETE est simulée avec _method=DELETE -->
-                    <form action="/api/equipe/<%= resultat.id %>?_method=DELETE" method="post" style="display:inline;">
-                        <button type="submit">Supprimer</button>
-                    </form>
+                    <!-- Bouton supprimer : géré en JavaScript via fetch DELETE -->
+                    <button class="supprimerBtn" data-id="<%= resultat.id %>">Supprimer</button>
 
                 </div>
             </div>

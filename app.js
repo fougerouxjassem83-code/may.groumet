@@ -141,7 +141,7 @@ app.delete('/api/equipe/:id', (req, res) => {
             if (err) return console.log(err);
 
             // Après suppression, on redirige vers la liste de l'équipe
-            res.status(200).redirect("/api/equipe");
+            res.status(200).json({ success: true });
         });
     });
 });
@@ -273,19 +273,6 @@ app.post('/api/plats', (req, res) => {
         });
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
