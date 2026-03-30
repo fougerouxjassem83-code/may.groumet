@@ -185,3 +185,68 @@ document.addEventListener("DOMContentLoaded", () => {
 //---------------------------------
 // ici je personalise ma navbar pour le bon affichage de mes pages
 // ---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//***ici je vais personnalier mon modal plats que jai créer pour pouvoir l'ouvrir et le fermer */
+// -------------------------------
+  // Modal Ajouter un nouveaux plats
+  // -------------------------------
+ 
+  // Récupère la modale d'ajout (la fenêtre qui s'ouvre pour ajouter un membre)
+  const mymodalplats = document.getElementById("myModalplats");
+ 
+  // Récupère le bouton "Ajouter un membre !" qui ouvre la modale
+  const btnAdd   = document.getElementById("myBtn");
+ 
+  // Récupère le bouton de fermeture (la croix) dans la modale d'ajout
+  const closeAdd = modalAdd.querySelector(".close");
+ 
+  // Quand on clique sur le bouton "Ajouter un membre !", on affiche la modale
+  btnAdd.onclick  = () => {
+    modalAdd.style.display = "block";
+  };
+ 
+  // Quand on clique sur la croix, on ferme la modale
+  closeAdd.onclick = () => {
+    modalAdd.style.display = "none";
+  };
+ 
+ 

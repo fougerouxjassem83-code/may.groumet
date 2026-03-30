@@ -249,30 +249,63 @@ app.get('/api/plats', (req, res) => {
     });
 });
 
-// Route pour AJOUTER un plat
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//**ici on vas créer une route pour ajouter un nouvbeaux plats */
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 app.post('/api/plats', (req, res) => {
-    // On récupère les champs du formulaire plats
-    const { nomPlat, descriptionPlat, prixPlat, combienPlat, quantitéPlat, ingrédientPlat, fait_maisonPlat } = req.body;
+    const { nomPlat, combienPlat, quantitéPlat, ingrédientPlat, faitMaisonPlat } = req.body;
 
-    // Requête SQL pour insérer un plat
-    const sql = "INSERT INTO plats (nom, description, prix, combien, quantité, ingrédient, fait_maison) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    const sql = `
+        INSERT INTO plats (nom, combien, quantite, ingredient, fait_maison)
+        VALUES (?, ?, ?, ?, ?)
+    `;
 
-    // Tableau des valeurs pour la requête
-    const values = [nomPlat, descriptionPlat, prixPlat, combienPlat, quantitéPlat, ingrédientPlat, fait_maisonPlat];
+    const values = [nomPlat, combienPlat, quantitéPlat, ingrédientPlat, faitMaisonPlat];
 
-    // On récupère une connexion à la base
     req.getConnection((err, connection) => {
         if (err) return console.log(err);
 
-        // On exécute la requête d'insertion
         connection.query(sql, values, (err, result) => {
-            if (err) return console.log(err);
-
-            // Après l'ajout, on redirige vers la liste des plats
-            res.redirect("/api/plats");
+            if (err) {
+                console.log("ERREUR SQL :", err);
+            } else {
+                console.log("Plat ajouté !");
+                res.redirect("/api/plats");
+            }
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

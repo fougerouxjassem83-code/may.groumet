@@ -18,10 +18,10 @@
    <h1>Nos plats</h1>
 
 <!-- affichage des plats -->
+<!-- affichage des plats -->
 <% resultatPlats.forEach(plat => { %>
 
   <div class="card">
-    <!-- Photo du plat -->
     <% if (plat.photo) { %>
       <img src="pilao.avif" alt="<%= plat.nom %>" class="card-img">
     <% } else { %>
@@ -29,17 +29,45 @@
     <% } %>
 
     <h3><%= plat.nom %></h3>
-    <p><%= plat.description %></p>
-    <p><%= plat.prix %> €</p>
     <p><%= plat.combien %></p>
     <p><%= plat.quantité %></p>
     <p><%= plat.ingrédient %></p>
     <p><%= plat.fait_maison %></p>
+
+    <!--  Bouton ICI, à l'intérieur du forEach -->
+    <button class="btn-ouvrir-modal">Ajouter</button>
+
   </div>
 
-<% }) %>
+<% }) %>  <!-- Le forEach se ferme APRÈS le bouton -->
 
+<!--ici je vais créer un modal pour les champs que j'ai créer et qui sont sur ma bases de données pour adapter a mon modal-->
 
+ <div id="myModalplats" class="modalplats">
+        <div class="modal-content">
+            <!-- En‑tête de la modale avec le titre et la croix de fermeture -->
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h3>ajouter un plat !</h3>
+            </div>
+
+            <!-- Corps de la modale : formulaire d'ajout pour mes plats -->
+            <div class="modal-body">
+                <!-- Formulaire envoyé en POST vers l'API /api/plats -->
+                <form action="/api/plats" method="post">
+                    <!-- Chaque champ permet de saisir une info sur le nouveau plat -->
+                    <input type="text"   name="nomPlat"              placeholder="Nom"        required><br><br>
+                    <input type="text"   name="combienPlat"           placeholder="Combien"     required><br><br>
+                    <input type="number" name="quantitéPlat" placeholder="Quantité" required><br><br>
+                    <input type="text"   name="ingrédientPlat"        placeholder="Ingrédients"  required><br><br>
+                    <input type="text"   name="faitMaisonPlat"   placeholder="Fait à la maison"    required><br><br>
+
+                    <!-- Bouton pour valider l'ajout du nouveau plats -->
+                    <button type="submit">Ajouter un plat</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
